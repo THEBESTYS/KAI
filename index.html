@@ -103,6 +103,12 @@
                 clip-path: polygon(0 0, 100% 0, 100% 100%, 0 98%);
             }
         }
+
+        /* Language toggle button active state */
+        .lang-btn {
+            min-width: 70px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -117,14 +123,16 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-8 text-sm">
-                <a href="#program" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline">Programs</a>
-                <a href="#certification" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline">Certification</a>
-                <a href="#pathway" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline">Pathway</a>
-                <!-- 추가된 캠프 메뉴 -->
-                <a href="https://thebestys.github.io/KAICAMP/" target="_blank" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline">K-AI Culture Academy 캠프</a>
-                <a href="#contact" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline">Contact</a>
+                <a href="#program" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline" data-key="nav_programs">Programs</a>
+                <a href="#certification" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline" data-key="nav_certification">Certification</a>
+                <a href="#pathway" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline" data-key="nav_pathway">Pathway</a>
+                <a href="https://thebestys.github.io/KAICAMP/" target="_blank" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline" data-key="nav_camp">K-AI Culture Academy 캠프</a>
+                <a href="#contact" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline" data-key="nav_contact">Contact</a>
                 <div class="w-px h-4 bg-zinc-200 mx-2"></div>
-                <a href="#" class="text-xs font-semibold text-zinc-900 border border-zinc-200 px-4 py-1.5 rounded-full hover:bg-zinc-900 hover:text-white hover:border-zinc-900 transition-all">EN / KO</a>
+                <!-- Language Toggle Button -->
+                <button id="langToggle" class="lang-btn text-xs font-semibold text-zinc-900 border border-zinc-200 px-4 py-1.5 rounded-full hover:bg-zinc-900 hover:text-white hover:border-zinc-900 transition-all">
+                    EN / KO
+                </button>
             </nav>
 
             <!-- Mobile Menu Button -->
@@ -144,34 +152,34 @@
                 <div class="space-y-8">
                     <div class="flex items-center gap-3 fade-in">
                         <span class="w-6 h-px bg-rose-600"></span>
-                        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">Global Launch 2025</span>
+                        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400" data-key="hero_badge">Global Launch 2025</span>
                     </div>
                     <h1 class="text-5xl md:text-7xl lg:text-8xl tracking-tighter text-zinc-900 leading-[1.05] font-medium fade-in fade-in-d1">
                         K-AI<br>
                         <span class="font-serif italic text-zinc-300 font-light">Culture</span>
                         <span class="text-rose-600">.</span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-zinc-500 font-light leading-relaxed max-w-lg keep-all fade-in fade-in-d2">
+                    <p class="text-xl md:text-2xl text-zinc-500 font-light leading-relaxed max-w-lg keep-all fade-in fade-in-d2" data-key="hero_desc">
                         AI 기반 K-컬처 교육의 새로운 표준.<br>
                         세계적인 K-pop 트레이너 양성의 시작.
                     </p>
                     <div class="flex flex-wrap gap-4 fade-in fade-in-d3">
-                        <a href="#program" class="bg-zinc-900 text-white px-8 py-4 rounded-none text-sm font-medium tracking-wider hover:bg-zinc-700 transition-colors inline-flex items-center gap-2">
+                        <a href="#program" class="bg-zinc-900 text-white px-8 py-4 rounded-none text-sm font-medium tracking-wider hover:bg-zinc-700 transition-colors inline-flex items-center gap-2" data-key="hero_btn1">
                             Explore Programs
                             <iconify-icon icon="solar:arrow-right-up-linear" width="18" height="18"></iconify-icon>
                         </a>
-                        <a href="#contact" class="border border-zinc-200 px-8 py-4 rounded-none text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors">
+                        <a href="#contact" class="border border-zinc-200 px-8 py-4 rounded-none text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors" data-key="hero_btn2">
                             Partnership Inquiry
                         </a>
                     </div>
                     <div class="flex items-center gap-8 pt-4 text-zinc-400 text-sm fade-in fade-in-d4">
                         <div class="flex items-center gap-2">
                             <iconify-icon icon="solar:check-circle-bold" width="18" class="text-rose-600"></iconify-icon>
-                            <span>Mongolia · Vietnam · Philippines</span>
+                            <span data-key="hero_country1">Mongolia · Vietnam · Philippines</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <iconify-icon icon="solar:check-circle-bold" width="18" class="text-rose-600"></iconify-icon>
-                            <span>University Level</span>
+                            <span data-key="hero_level">University Level</span>
                         </div>
                     </div>
                 </div>
@@ -186,7 +194,7 @@
                         <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                         <!-- Badge -->
                         <div class="absolute bottom-8 left-8 bg-white/90 backdrop-blur px-6 py-4 shadow-lg">
-                            <p class="text-xs font-semibold uppercase tracking-widest text-zinc-500">Official Partner</p>
+                            <p class="text-xs font-semibold uppercase tracking-widest text-zinc-500" data-key="hero_badge_small">Official Partner</p>
                             <p class="text-lg font-serif text-zinc-900">Chugye University for the Arts</p>
                         </div>
                     </div>
@@ -200,7 +208,7 @@
         <!-- ===== TRUST BAR ===== -->
         <div class="border-y border-zinc-100 bg-white/50 py-6">
             <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center md:justify-between items-center gap-6 text-sm text-zinc-500">
-                <span class="font-medium text-zinc-900">Trusted by</span>
+                <span class="font-medium text-zinc-900" data-key="trust_title">Trusted by</span>
                 <span>World K-Pop Center</span>
                 <span class="w-px h-4 bg-zinc-200 hidden md:block"></span>
                 <span>King Sejong Institute</span>
@@ -216,11 +224,11 @@
             <div class="max-w-7xl mx-auto px-6">
                 <!-- Header -->
                 <div class="text-center max-w-2xl mx-auto mb-20">
-                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-600">Programs</span>
-                    <h2 class="text-4xl md:text-5xl tracking-tight text-zinc-900 font-medium mt-4 keep-all">
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-600" data-key="program_badge">Programs</span>
+                    <h2 class="text-4xl md:text-5xl tracking-tight text-zinc-900 font-medium mt-4 keep-all" data-key="program_title">
                         AI 기반 <span class="font-serif italic text-zinc-400">K-Culture</span> 패키지
                     </h2>
-                    <p class="text-zinc-500 font-light mt-4 leading-relaxed">
+                    <p class="text-zinc-500 font-light mt-4 leading-relaxed" data-key="program_desc">
                         귀 기관의 목표와 학생 수준에 맞춰 선택 가능한 3단계 솔루션.
                     </p>
                 </div>
@@ -233,19 +241,19 @@
                             <span class="text-xs font-bold uppercase tracking-widest text-zinc-400">Lite</span>
                             <span class="text-2xl font-light text-zinc-900">$10k</span>
                         </div>
-                        <h3 class="text-xl font-medium text-zinc-900">Language Schools<br> &amp; Cultural Centers</h3>
+                        <h3 class="text-xl font-medium text-zinc-900" data-key="package_lite_title">Language Schools<br> &amp; Cultural Centers</h3>
                         <ul class="mt-6 space-y-3 text-sm text-zinc-600 font-light">
                             <li class="flex items-start gap-3">
                                 <iconify-icon icon="solar:check-circle-linear" width="18" class="text-rose-600 mt-0.5"></iconify-icon>
-                                AI 교과서 &amp; 온라인 커리큘럼
+                                <span data-key="package_lite_1">AI 교과서 &amp; 온라인 커리큘럼</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <iconify-icon icon="solar:check-circle-linear" width="18" class="text-rose-600 mt-0.5"></iconify-icon>
-                                세종학당 공동 프로모션
+                                <span data-key="package_lite_2">세종학당 공동 프로모션</span>
                             </li>
                         </ul>
                         <div class="mt-8 pt-6 border-t border-zinc-200">
-                            <a href="#" class="text-xs font-semibold tracking-wider text-zinc-900 hover:text-rose-600 transition-colors inline-flex items-center gap-2">
+                            <a href="#" class="text-xs font-semibold tracking-wider text-zinc-900 hover:text-rose-600 transition-colors inline-flex items-center gap-2" data-key="learn_more">
                                 Learn More <iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon>
                             </a>
                         </div>
@@ -253,28 +261,28 @@
 
                     <!-- Standard -->
                     <div class="bg-zinc-900 p-8 border border-zinc-900 shadow-xl relative group">
-                        <div class="absolute top-0 right-0 bg-rose-600 text-white text-[10px] font-bold px-3 py-1 tracking-wider">Most Popular</div>
+                        <div class="absolute top-0 right-0 bg-rose-600 text-white text-[10px] font-bold px-3 py-1 tracking-wider" data-key="popular_badge">Most Popular</div>
                         <div class="flex justify-between items-start mb-6">
                             <span class="text-xs font-bold uppercase tracking-widest text-zinc-400">Standard</span>
                             <span class="text-2xl font-light text-white">$30k</span>
                         </div>
-                        <h3 class="text-xl font-medium text-white">University <br>Lifelong Education</h3>
+                        <h3 class="text-xl font-medium text-white" data-key="package_standard_title">University <br>Lifelong Education</h3>
                         <ul class="mt-6 space-y-3 text-sm text-zinc-300 font-light">
                             <li class="flex items-start gap-3">
                                 <iconify-icon icon="solar:check-circle-bold" width="18" class="text-rose-500 mt-0.5"></iconify-icon>
-                                Level 2 트레이너 자격증
+                                <span data-key="package_standard_1">Level 2 트레이너 자격증</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <iconify-icon icon="solar:check-circle-bold" width="18" class="text-rose-500 mt-0.5"></iconify-icon>
-                                한국 강사 연수 (2주)
+                                <span data-key="package_standard_2">한국 강사 연수 (2주)</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <iconify-icon icon="solar:check-circle-bold" width="18" class="text-rose-500 mt-0.5"></iconify-icon>
-                                AI 교과서 &amp; 라이센스
+                                <span data-key="package_standard_3">AI 교과서 &amp; 라이센스</span>
                             </li>
                         </ul>
                         <div class="mt-8 pt-6 border-t border-zinc-700">
-                            <a href="#" class="text-xs font-semibold tracking-wider text-white hover:text-rose-400 transition-colors inline-flex items-center gap-2">
+                            <a href="#" class="text-xs font-semibold tracking-wider text-white hover:text-rose-400 transition-colors inline-flex items-center gap-2" data-key="learn_more">
                                 Learn More <iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon>
                             </a>
                         </div>
@@ -286,23 +294,23 @@
                             <span class="text-xs font-bold uppercase tracking-widest text-zinc-400">Premium</span>
                             <span class="text-2xl font-light text-zinc-900">$60k</span>
                         </div>
-                        <h3 class="text-xl font-medium text-zinc-900">K-Culture Major <br>Departments</h3>
+                        <h3 class="text-xl font-medium text-zinc-900" data-key="package_premium_title">K-Culture Major <br>Departments</h3>
                         <ul class="mt-6 space-y-3 text-sm text-zinc-600 font-light">
                             <li class="flex items-start gap-3">
                                 <iconify-icon icon="solar:check-circle-linear" width="18" class="text-rose-600 mt-0.5"></iconify-icon>
-                                Level 1 &amp; 2 자격증
+                                <span data-key="package_premium_1">Level 1 &amp; 2 자격증</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <iconify-icon icon="solar:check-circle-linear" width="18" class="text-rose-600 mt-0.5"></iconify-icon>
-                                추계예대 실습 (1개월)
+                                <span data-key="package_premium_2">추계예대 실습 (1개월)</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <iconify-icon icon="solar:check-circle-linear" width="18" class="text-rose-600 mt-0.5"></iconify-icon>
-                                홍성고 / 한국 대학 진학 연계
+                                <span data-key="package_premium_3">홍성고 / 한국 대학 진학 연계</span>
                             </li>
                         </ul>
                         <div class="mt-8 pt-6 border-t border-zinc-200">
-                            <a href="#" class="text-xs font-semibold tracking-wider text-zinc-900 hover:text-rose-600 transition-colors inline-flex items-center gap-2">
+                            <a href="#" class="text-xs font-semibold tracking-wider text-zinc-900 hover:text-rose-600 transition-colors inline-flex items-center gap-2" data-key="learn_more">
                                 Learn More <iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon>
                             </a>
                         </div>
@@ -315,29 +323,29 @@
         <section id="certification" class="py-24 bg-zinc-50 border-y border-zinc-100">
             <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
-                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-600">Our Edge</span>
-                    <h2 class="text-4xl md:text-5xl tracking-tight text-zinc-900 font-medium keep-all">
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-600" data-key="cert_badge">Our Edge</span>
+                    <h2 class="text-4xl md:text-5xl tracking-tight text-zinc-900 font-medium keep-all" data-key="cert_title">
                         유일무이한 <br><span class="font-serif italic">K-pop</span> 트레이너 자격증
                     </h2>
-                    <p class="text-zinc-500 font-light leading-relaxed text-lg">
+                    <p class="text-zinc-500 font-light leading-relaxed text-lg" data-key="cert_desc">
                         세계 K-Pop 센터가 보유한 국내 유일의 공식 자격증 시스템. AI EdTech 교재와 실무 중심의 커리큘럼으로 글로벌 표준을 제시합니다.
                     </p>
                     <ul class="space-y-3 text-zinc-700">
                         <li class="flex items-start gap-3 text-sm font-medium">
                             <iconify-icon icon="solar:verified-check-bold" width="20" class="text-rose-600"></iconify-icon>
-                            Level 1 · 2 K-pop Vocal &amp; Dance Trainer
+                            <span data-key="cert_list_1">Level 1 · 2 K-pop Vocal &amp; Dance Trainer</span>
                         </li>
                         <li class="flex items-start gap-3 text-sm font-medium">
                             <iconify-icon icon="solar:verified-check-bold" width="20" class="text-rose-600"></iconify-icon>
-                            추계예술대학교 실습 협약
+                            <span data-key="cert_list_2">추계예술대학교 실습 협약</span>
                         </li>
                         <li class="flex items-start gap-3 text-sm font-medium">
                             <iconify-icon icon="solar:verified-check-bold" width="20" class="text-rose-600"></iconify-icon>
-                            AI 기반 대학 수준 연구 교재
+                            <span data-key="cert_list_3">AI 기반 대학 수준 연구 교재</span>
                         </li>
                     </ul>
                     <div class="pt-4">
-                        <a href="#" class="text-sm font-semibold text-zinc-900 border-b border-zinc-900 pb-1 hover:text-rose-600 hover:border-rose-600 transition-all inline-flex items-center gap-2">
+                        <a href="#" class="text-sm font-semibold text-zinc-900 border-b border-zinc-900 pb-1 hover:text-rose-600 hover:border-rose-600 transition-all inline-flex items-center gap-2" data-key="cert_link">
                             자격증 상세 보기 <iconify-icon icon="solar:arrow-right-up-linear" width="16"></iconify-icon>
                         </a>
                     </div>
@@ -345,23 +353,23 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-white p-6 border border-zinc-200 shadow-sm">
                         <div class="text-3xl font-serif text-rose-600">01</div>
-                        <p class="text-sm font-medium text-zinc-900 mt-2">AI Textbook</p>
-                        <p class="text-xs text-zinc-400 font-light">University-level curriculum</p>
+                        <p class="text-sm font-medium text-zinc-900 mt-2" data-key="cert_feature_1">AI Textbook</p>
+                        <p class="text-xs text-zinc-400 font-light" data-key="cert_feature_1_desc">University-level curriculum</p>
                     </div>
                     <div class="bg-white p-6 border border-zinc-200 shadow-sm mt-8">
                         <div class="text-3xl font-serif text-rose-600">02</div>
-                        <p class="text-sm font-medium text-zinc-900 mt-2">Master Trainer</p>
-                        <p class="text-xs text-zinc-400 font-light">1-month Korea training</p>
+                        <p class="text-sm font-medium text-zinc-900 mt-2" data-key="cert_feature_2">Master Trainer</p>
+                        <p class="text-xs text-zinc-400 font-light" data-key="cert_feature_2_desc">1-month Korea training</p>
                     </div>
                     <div class="bg-white p-6 border border-zinc-200 shadow-sm -mt-4">
                         <div class="text-3xl font-serif text-rose-600">03</div>
-                        <p class="text-sm font-medium text-zinc-900 mt-2">Global Standard</p>
-                        <p class="text-xs text-zinc-400 font-light">K-Culture certification</p>
+                        <p class="text-sm font-medium text-zinc-900 mt-2" data-key="cert_feature_3">Global Standard</p>
+                        <p class="text-xs text-zinc-400 font-light" data-key="cert_feature_3_desc">K-Culture certification</p>
                     </div>
                     <div class="bg-white p-6 border border-zinc-200 shadow-sm">
                         <div class="text-3xl font-serif text-rose-600">04</div>
-                        <p class="text-sm font-medium text-zinc-900 mt-2">Career Pathway</p>
-                        <p class="text-xs text-zinc-400 font-light">Hongseong High School</p>
+                        <p class="text-sm font-medium text-zinc-900 mt-2" data-key="cert_feature_4">Career Pathway</p>
+                        <p class="text-xs text-zinc-400 font-light" data-key="cert_feature_4_desc">Hongseong High School</p>
                     </div>
                 </div>
             </div>
@@ -373,16 +381,16 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Card 1 -->
                     <div class="lg:col-span-1 space-y-4">
-                        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-600">Pathway</span>
-                        <h3 class="text-3xl tracking-tight text-zinc-900 font-medium keep-all">한국 유학 &amp; <br>커리어 로드맵</h3>
-                        <p class="text-zinc-500 font-light text-sm leading-relaxed">
+                        <span class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-600" data-key="pathway_badge">Pathway</span>
+                        <h3 class="text-3xl tracking-tight text-zinc-900 font-medium keep-all" data-key="pathway_title">한국 유학 &amp; <br>커리어 로드맵</h3>
+                        <p class="text-zinc-500 font-light text-sm leading-relaxed" data-key="pathway_desc">
                             홍성 K-pop 고등학교와 추계예대를 비롯한 한국 대학으로의 진학을 지원합니다.
                         </p>
                     </div>
                     <!-- Card 2 -->
                     <div class="bg-zinc-50 p-8 border border-zinc-100">
                         <div class="text-4xl font-serif text-zinc-300 mb-4">“</div>
-                        <p class="text-sm font-light text-zinc-700 leading-relaxed keep-all">
+                        <p class="text-sm font-light text-zinc-700 leading-relaxed keep-all" data-key="pathway_quote_1">
                             본 프로그램 수료 시, 홍성 K-pop 고등학교 및 제휴 대학 입학 시 가산점 및 추천 전형 혜택 제공.
                         </p>
                         <div class="mt-6 pt-4 border-t border-zinc-200">
@@ -392,7 +400,7 @@
                     <!-- Card 3 -->
                     <div class="bg-zinc-900 p-8 border border-zinc-900 text-white">
                         <div class="text-4xl font-serif text-rose-500 mb-4">“</div>
-                        <p class="text-sm font-light text-zinc-300 leading-relaxed keep-all">
+                        <p class="text-sm font-light text-zinc-300 leading-relaxed keep-all" data-key="pathway_quote_2">
                             2+2 복수 학위 및 교환학생 프로그램을 통해 글로벌 인재를 양성합니다.
                         </p>
                         <div class="mt-6 pt-4 border-t border-zinc-700">
@@ -406,7 +414,7 @@
         <!-- ===== PARTNERS / GLOBAL MAP (Visual) ===== -->
         <section class="py-16 bg-zinc-50 border-y border-zinc-100">
             <div class="max-w-7xl mx-auto px-6 text-center">
-                <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">Target Countries</h4>
+                <h4 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400" data-key="target_title">Target Countries</h4>
                 <div class="flex flex-wrap justify-center gap-8 md:gap-16 mt-8 text-zinc-800">
                     <div class="flex flex-col items-center">
                         <span class="text-2xl font-serif">🇲🇳</span>
@@ -424,7 +432,7 @@
                         <span class="text-[10px] text-zinc-400">Manila</span>
                     </div>
                 </div>
-                <p class="text-sm text-zinc-500 font-light mt-6">
+                <p class="text-sm text-zinc-500 font-light mt-6" data-key="target_partners">
                     * King Sejong Institute · KOICA · KERIS 협력 사업
                 </p>
             </div>
@@ -433,17 +441,17 @@
         <!-- ===== CTA / CONTACT ===== -->
         <section id="contact" class="py-28 bg-white">
             <div class="max-w-4xl mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-6xl tracking-tight text-zinc-900 font-serif font-light italic">
+                <h2 class="text-4xl md:text-6xl tracking-tight text-zinc-900 font-serif font-light italic" data-key="cta_title">
                     Let's shape the future <br>of K-Culture <span class="text-rose-600">together</span>.
                 </h2>
-                <p class="text-zinc-500 font-light mt-6 text-lg max-w-xl mx-auto leading-relaxed">
+                <p class="text-zinc-500 font-light mt-6 text-lg max-w-xl mx-auto leading-relaxed" data-key="cta_desc">
                     글로벌 파트너십에 관심이 있으시다면, 언제든지 연락 주세요. 맞춤형 솔루션을 설계해 드립니다.
                 </p>
                 <div class="mt-12 flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#" class="bg-zinc-900 text-white px-10 py-4 text-sm font-medium tracking-wider hover:bg-zinc-700 transition-colors">
+                    <a href="#" class="bg-zinc-900 text-white px-10 py-4 text-sm font-medium tracking-wider hover:bg-zinc-700 transition-colors" data-key="cta_btn1">
                         Partnership Inquiry
                     </a>
-                    <a href="#" class="border border-zinc-200 px-10 py-4 text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors">
+                    <a href="#" class="border border-zinc-200 px-10 py-4 text-sm font-medium text-zinc-700 hover:bg-zinc-100 transition-colors" data-key="cta_btn2">
                         info@kaiculture.com
                     </a>
                 </div>
@@ -461,15 +469,201 @@
             <div class="flex items-center gap-4">
                 <span class="font-serif text-sm text-white font-light">KAI</span>
                 <span class="w-px h-4 bg-zinc-700"></span>
-                <span>AI-Powered K-Culture Education</span>
+                <span data-key="footer_tagline">AI-Powered K-Culture Education</span>
             </div>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                <a href="#" class="hover:text-white transition-colors">Terms</a>
-                <a href="#" class="hover:text-white transition-colors">Contact</a>
+                <a href="#" class="hover:text-white transition-colors" data-key="footer_privacy">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors" data-key="footer_terms">Terms</a>
+                <a href="#" class="hover:text-white transition-colors" data-key="footer_contact">Contact</a>
             </div>
         </div>
     </footer>
+
+    <!-- ==================== LANGUAGE SWITCH SCRIPT ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Language Data ---
+            const translations = {
+                en: {
+                    // Nav
+                    nav_programs: "Programs",
+                    nav_certification: "Certification",
+                    nav_pathway: "Pathway",
+                    nav_camp: "K-AI Culture Academy Camp",
+                    nav_contact: "Contact",
+                    // Hero
+                    hero_badge: "Global Launch 2025",
+                    hero_desc: "A new standard in AI-powered K-Culture education.<br>The beginning of world-class K-pop trainer training.",
+                    hero_btn1: "Explore Programs",
+                    hero_btn2: "Partnership Inquiry",
+                    hero_country1: "Mongolia · Vietnam · Philippines",
+                    hero_level: "University Level",
+                    hero_badge_small: "Official Partner",
+                    // Trust
+                    trust_title: "Trusted by",
+                    // Programs
+                    program_badge: "Programs",
+                    program_title: 'AI-Powered <span class="font-serif italic text-zinc-400">K-Culture</span> Packages',
+                    program_desc: "A 3-tier solution tailored to your institution's goals and student levels.",
+                    package_lite_title: "Language Schools<br> &amp; Cultural Centers",
+                    package_lite_1: "AI Textbooks &amp; Online Curriculum",
+                    package_lite_2: "Joint Promotion with King Sejong Institute",
+                    package_standard_title: "University <br>Lifelong Education",
+                    package_standard_1: "Level 2 Trainer Certification",
+                    package_standard_2: "Instructor Training in Korea (2 weeks)",
+                    package_standard_3: "AI Textbooks &amp; License",
+                    package_premium_title: "K-Culture Major <br>Departments",
+                    package_premium_1: "Level 1 &amp; 2 Certification",
+                    package_premium_2: "Chugye University Workshop (1 month)",
+                    package_premium_3: "Hongseong High School / University Pathway",
+                    popular_badge: "Most Popular",
+                    learn_more: "Learn More",
+                    // Certification
+                    cert_badge: "Our Edge",
+                    cert_title: 'The One and Only <br><span class="font-serif italic">K-pop</span> Trainer Certification',
+                    cert_desc: "Korea's only official certification system, held by the World K-Pop Center. Offering global standards with AI EdTech materials and a practical curriculum.",
+                    cert_list_1: "Level 1 · 2 K-pop Vocal &amp; Dance Trainer",
+                    cert_list_2: "Chugye University for the Arts Partnership",
+                    cert_list_3: "AI-based University-level Research Textbooks",
+                    cert_link: "View Certification Details",
+                    cert_feature_1: "AI Textbook",
+                    cert_feature_1_desc: "University-level curriculum",
+                    cert_feature_2: "Master Trainer",
+                    cert_feature_2_desc: "1-month Korea training",
+                    cert_feature_3: "Global Standard",
+                    cert_feature_3_desc: "K-Culture certification",
+                    cert_feature_4: "Career Pathway",
+                    cert_feature_4_desc: "Hongseong High School",
+                    // Pathway
+                    pathway_badge: "Pathway",
+                    pathway_title: "Study in Korea &amp; <br>Career Roadmap",
+                    pathway_desc: "Supporting pathways to Hongseong K-pop High School and Korean universities including Chugye University.",
+                    pathway_quote_1: "Graduates of this program receive admission benefits and recommendation tracks for Hongseong K-pop High School and partner universities.",
+                    pathway_quote_2: "Fostering global talent through 2+2 dual degree programs and student exchange opportunities.",
+                    // Partners
+                    target_title: "Target Countries",
+                    target_partners: "* In partnership with King Sejong Institute · KOICA · KERIS",
+                    // CTA
+                    cta_title: "Let's shape the future <br>of K-Culture <span class='text-rose-600'>together</span>.",
+                    cta_desc: "If you are interested in a global partnership, please contact us anytime. We will design a customized solution for you.",
+                    cta_btn1: "Partnership Inquiry",
+                    cta_btn2: "info@kaiculture.com",
+                    // Footer
+                    footer_tagline: "AI-Powered K-Culture Education",
+                    footer_privacy: "Privacy",
+                    footer_terms: "Terms",
+                    footer_contact: "Contact"
+                },
+                ko: {
+                    // Nav
+                    nav_programs: "강좌 찾기",
+                    nav_certification: "자격증",
+                    nav_pathway: "진로 연계",
+                    nav_camp: "K-AI Culture Academy 캠프",
+                    nav_contact: "문의",
+                    // Hero
+                    hero_badge: "Global Launch 2025",
+                    hero_desc: "AI 기반 K-컬처 교육의 새로운 표준.<br>세계적인 K-pop 트레이너 양성의 시작.",
+                    hero_btn1: "프로그램 살펴보기",
+                    hero_btn2: "파트너십 문의",
+                    hero_country1: "몽골 · 베트남 · 필리핀",
+                    hero_level: "대학 수준",
+                    hero_badge_small: "공식 파트너",
+                    // Trust
+                    trust_title: "신뢰받는 기관",
+                    // Programs
+                    program_badge: "프로그램",
+                    program_title: 'AI 기반 <span class="font-serif italic text-zinc-400">K-Culture</span> 패키지',
+                    program_desc: "귀 기관의 목표와 학생 수준에 맞춰 선택 가능한 3단계 솔루션.",
+                    package_lite_title: "어학원 · 문화센터",
+                    package_lite_1: "AI 교과서 &amp; 온라인 커리큘럼",
+                    package_lite_2: "세종학당 공동 프로모션",
+                    package_standard_title: "대학 · 평생교육원",
+                    package_standard_1: "Level 2 트레이너 자격증",
+                    package_standard_2: "한국 강사 연수 (2주)",
+                    package_standard_3: "AI 교과서 &amp; 라이센스",
+                    package_premium_title: "K-컬처 전공학과",
+                    package_premium_1: "Level 1 &amp; 2 자격증",
+                    package_premium_2: "추계예대 실습 (1개월)",
+                    package_premium_3: "홍성고 / 한국 대학 진학 연계",
+                    popular_badge: "인기 강좌",
+                    learn_more: "자세히 보기",
+                    // Certification
+                    cert_badge: "Our Edge",
+                    cert_title: '유일무이한 <br><span class="font-serif italic">K-pop</span> 트레이너 자격증',
+                    cert_desc: "세계 K-Pop 센터가 보유한 국내 유일의 공식 자격증 시스템. AI EdTech 교재와 실무 중심의 커리큘럼으로 글로벌 표준을 제시합니다.",
+                    cert_list_1: "Level 1 · 2 K-pop Vocal &amp; Dance Trainer",
+                    cert_list_2: "추계예술대학교 실습 협약",
+                    cert_list_3: "AI 기반 대학 수준 연구 교재",
+                    cert_link: "자격증 상세 보기",
+                    cert_feature_1: "AI 교재",
+                    cert_feature_1_desc: "대학 수준 커리큘럼",
+                    cert_feature_2: "마스터 트레이너",
+                    cert_feature_2_desc: "1개월 한국 연수",
+                    cert_feature_3: "글로벌 표준",
+                    cert_feature_3_desc: "K-컬처 자격증",
+                    cert_feature_4: "진로 연계",
+                    cert_feature_4_desc: "홍성고등학교",
+                    // Pathway
+                    pathway_badge: "진로 연계",
+                    pathway_title: "한국 유학 &amp; <br>커리어 로드맵",
+                    pathway_desc: "홍성 K-pop 고등학교와 추계예대를 비롯한 한국 대학으로의 진학을 지원합니다.",
+                    pathway_quote_1: "본 프로그램 수료 시, 홍성 K-pop 고등학교 및 제휴 대학 입학 시 가산점 및 추천 전형 혜택 제공.",
+                    pathway_quote_2: "2+2 복수 학위 및 교환학생 프로그램을 통해 글로벌 인재를 양성합니다.",
+                    // Partners
+                    target_title: "진출 국가",
+                    target_partners: "* 세종학당 · KOICA · KERIS 협력 사업",
+                    // CTA
+                    cta_title: "Let's shape the future <br>of K-Culture <span class='text-rose-600'>together</span>.",
+                    cta_desc: "글로벌 파트너십에 관심이 있으시다면, 언제든지 연락 주세요. 맞춤형 솔루션을 설계해 드립니다.",
+                    cta_btn1: "파트너십 문의",
+                    cta_btn2: "info@kaiculture.com",
+                    // Footer
+                    footer_tagline: "AI 기반 K-컬처 교육",
+                    footer_privacy: "개인정보처리방침",
+                    footer_terms: "이용약관",
+                    footer_contact: "연락처"
+                }
+            };
+
+            // --- DOM Elements ---
+            const langToggle = document.getElementById('langToggle');
+            const translatableElements = document.querySelectorAll('[data-key]');
+            let currentLang = 'ko'; // Default language
+
+            // --- Function to apply translations ---
+            function setLanguage(lang) {
+                currentLang = lang;
+                // Update button text
+                langToggle.textContent = lang === 'ko' ? 'EN / KO' : 'KO / EN';
+
+                // Update all translatable elements
+                translatableElements.forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (translations[lang] && translations[lang][key]) {
+                        // If the translation contains HTML, use innerHTML, else use textContent
+                        if (translations[lang][key].includes('<')) {
+                            el.innerHTML = translations[lang][key];
+                        } else {
+                            el.textContent = translations[lang][key];
+                        }
+                    }
+                });
+
+                // Update html lang attribute
+                document.documentElement.lang = lang;
+            }
+
+            // --- Toggle Event ---
+            langToggle.addEventListener('click', function() {
+                const nextLang = currentLang === 'ko' ? 'en' : 'ko';
+                setLanguage(nextLang);
+            });
+
+            // --- Set initial language (Korean) ---
+            setLanguage('ko');
+        });
+    </script>
 
 </body>
 </html>
