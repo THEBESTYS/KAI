@@ -109,9 +109,123 @@
             min-width: 70px;
             text-align: center;
         }
+
+        /* ===== MOBILE NAVIGATION STYLES ===== */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 80px 32px 40px;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+            overflow-y: auto;
+            border-left: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 99;
+        }
+
+        .mobile-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #18181b;
+            border-bottom: 1px solid #f4f4f5;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #e11d48;
+        }
+
+        .mobile-menu .mobile-lang-btn {
+            margin-top: 24px;
+            padding: 12px 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #18181b;
+            border: 1px solid #e4e4e7;
+            border-radius: 8px;
+            background: transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .mobile-menu .mobile-lang-btn:hover {
+            background: #18181b;
+            color: #ffffff;
+            border-color: #18181b;
+        }
+
+        .mobile-menu .mobile-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #18181b;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu,
+            .mobile-overlay,
+            .mobile-menu-trigger {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- ==================== MOBILE OVERLAY ==================== -->
+    <div id="mobileOverlay" class="mobile-overlay"></div>
+
+    <!-- ==================== MOBILE MENU ==================== -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="mobileCloseBtn" class="mobile-close-btn" aria-label="Close menu">
+            <iconify-icon icon="solar:close-circle-linear" width="28" height="28"></iconify-icon>
+        </button>
+        <nav class="flex flex-col">
+            <a href="#program" data-key="nav_programs" class="hover-underline">Programs</a>
+            <a href="#certification" data-key="nav_certification" class="hover-underline">Certification</a>
+            <a href="#pathway" data-key="nav_pathway" class="hover-underline">Pathway</a>
+            <a href="https://thebestys.github.io/KAICAMP/" target="_blank" data-key="nav_camp" class="hover-underline">K-AI Culture Academy 캠프</a>
+            <a href="#contact" data-key="nav_contact" class="hover-underline">Contact</a>
+            <!-- Mobile Language Toggle Button -->
+            <button id="mobileLangToggle" class="mobile-lang-btn">EN / KO</button>
+        </nav>
+    </div>
 
     <!-- ==================== HEADER / NAV ==================== -->
     <header class="fixed top-0 w-full z-50 glass-nav transition-all duration-300">
@@ -129,15 +243,15 @@
                 <a href="https://thebestys.github.io/KAICAMP/" target="_blank" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline" data-key="nav_camp">K-AI Culture Academy 캠프</a>
                 <a href="#contact" class="font-medium text-zinc-500 hover:text-zinc-900 transition-colors hover-underline" data-key="nav_contact">Contact</a>
                 <div class="w-px h-4 bg-zinc-200 mx-2"></div>
-                <!-- Language Toggle Button -->
+                <!-- Desktop Language Toggle Button -->
                 <button id="langToggle" class="lang-btn text-xs font-semibold text-zinc-900 border border-zinc-200 px-4 py-1.5 rounded-full hover:bg-zinc-900 hover:text-white hover:border-zinc-900 transition-all">
                     EN / KO
                 </button>
             </nav>
 
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden text-zinc-500 hover:text-zinc-900">
-                <iconify-icon icon="solar:hamburger-menu-linear" width="24" height="24"></iconify-icon>
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button id="mobileMenuTrigger" class="md:hidden text-zinc-500 hover:text-zinc-900 transition-colors" aria-label="Open menu">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="28" height="28"></iconify-icon>
             </button>
         </div>
     </header>
@@ -479,19 +593,50 @@
         </div>
     </footer>
 
-    <!-- ==================== LANGUAGE SWITCH SCRIPT ==================== -->
+    <!-- ==================== SCRIPTS ==================== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- DOM Elements ---
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            const mobileTrigger = document.getElementById('mobileMenuTrigger');
+            const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+            const langToggle = document.getElementById('langToggle');
+            const mobileLangToggle = document.getElementById('mobileLangToggle');
+            const translatableElements = document.querySelectorAll('[data-key]');
+            let currentLang = 'ko';
+
+            // --- Mobile Menu Functions ---
+            function openMobileMenu() {
+                mobileMenu.classList.add('open');
+                mobileOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('open');
+                mobileOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            // --- Mobile Menu Event Listeners ---
+            mobileTrigger.addEventListener('click', openMobileMenu);
+            mobileCloseBtn.addEventListener('click', closeMobileMenu);
+            mobileOverlay.addEventListener('click', closeMobileMenu);
+
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
             // --- Language Data ---
             const translations = {
                 en: {
-                    // Nav
                     nav_programs: "Programs",
                     nav_certification: "Certification",
                     nav_pathway: "Pathway",
                     nav_camp: "K-AI Culture Academy Camp",
                     nav_contact: "Contact",
-                    // Hero
                     hero_badge: "Global Launch 2025",
                     hero_desc: "A new standard in AI-powered K-Culture education.<br>The beginning of world-class K-pop trainer training.",
                     hero_btn1: "Explore Programs",
@@ -499,9 +644,7 @@
                     hero_country1: "Mongolia · Vietnam · Philippines",
                     hero_level: "University Level",
                     hero_badge_small: "Official Partner",
-                    // Trust
                     trust_title: "Trusted by",
-                    // Programs
                     program_badge: "Programs",
                     program_title: 'AI-Powered <span class="font-serif italic text-zinc-400">K-Culture</span> Packages',
                     program_desc: "A 3-tier solution tailored to your institution's goals and student levels.",
@@ -518,7 +661,6 @@
                     package_premium_3: "Hongseong High School / University Pathway",
                     popular_badge: "Most Popular",
                     learn_more: "Learn More",
-                    // Certification
                     cert_badge: "Our Edge",
                     cert_title: 'The One and Only <br><span class="font-serif italic">K-pop</span> Trainer Certification',
                     cert_desc: "Korea's only official certification system, held by the World K-Pop Center. Offering global standards with AI EdTech materials and a practical curriculum.",
@@ -534,34 +676,28 @@
                     cert_feature_3_desc: "K-Culture certification",
                     cert_feature_4: "Career Pathway",
                     cert_feature_4_desc: "Hongseong High School",
-                    // Pathway
                     pathway_badge: "Pathway",
                     pathway_title: "Study in Korea &amp; <br>Career Roadmap",
                     pathway_desc: "Supporting pathways to Hongseong K-pop High School and Korean universities including Chugye University.",
                     pathway_quote_1: "Graduates of this program receive admission benefits and recommendation tracks for Hongseong K-pop High School and partner universities.",
                     pathway_quote_2: "Fostering global talent through 2+2 dual degree programs and student exchange opportunities.",
-                    // Partners
                     target_title: "Target Countries",
                     target_partners: "* In partnership with King Sejong Institute · KOICA · KERIS",
-                    // CTA
                     cta_title: "Let's shape the future <br>of K-Culture <span class='text-rose-600'>together</span>.",
                     cta_desc: "If you are interested in a global partnership, please contact us anytime. We will design a customized solution for you.",
                     cta_btn1: "Partnership Inquiry",
                     cta_btn2: "info@kaiculture.com",
-                    // Footer
                     footer_tagline: "AI-Powered K-Culture Education",
                     footer_privacy: "Privacy",
                     footer_terms: "Terms",
                     footer_contact: "Contact"
                 },
                 ko: {
-                    // Nav
                     nav_programs: "강좌 찾기",
                     nav_certification: "자격증",
                     nav_pathway: "진로 연계",
                     nav_camp: "K-AI Culture Academy 캠프",
                     nav_contact: "문의",
-                    // Hero
                     hero_badge: "Global Launch 2025",
                     hero_desc: "AI 기반 K-컬처 교육의 새로운 표준.<br>세계적인 K-pop 트레이너 양성의 시작.",
                     hero_btn1: "프로그램 살펴보기",
@@ -569,9 +705,7 @@
                     hero_country1: "몽골 · 베트남 · 필리핀",
                     hero_level: "대학 수준",
                     hero_badge_small: "공식 파트너",
-                    // Trust
                     trust_title: "신뢰받는 기관",
-                    // Programs
                     program_badge: "프로그램",
                     program_title: 'AI 기반 <span class="font-serif italic text-zinc-400">K-Culture</span> 패키지',
                     program_desc: "귀 기관의 목표와 학생 수준에 맞춰 선택 가능한 3단계 솔루션.",
@@ -588,7 +722,6 @@
                     package_premium_3: "홍성고 / 한국 대학 진학 연계",
                     popular_badge: "인기 강좌",
                     learn_more: "자세히 보기",
-                    // Certification
                     cert_badge: "Our Edge",
                     cert_title: '유일무이한 <br><span class="font-serif italic">K-pop</span> 트레이너 자격증',
                     cert_desc: "세계 K-Pop 센터가 보유한 국내 유일의 공식 자격증 시스템. AI EdTech 교재와 실무 중심의 커리큘럼으로 글로벌 표준을 제시합니다.",
@@ -604,21 +737,17 @@
                     cert_feature_3_desc: "K-컬처 자격증",
                     cert_feature_4: "진로 연계",
                     cert_feature_4_desc: "홍성고등학교",
-                    // Pathway
                     pathway_badge: "진로 연계",
                     pathway_title: "한국 유학 &amp; <br>커리어 로드맵",
                     pathway_desc: "홍성 K-pop 고등학교와 추계예대를 비롯한 한국 대학으로의 진학을 지원합니다.",
                     pathway_quote_1: "본 프로그램 수료 시, 홍성 K-pop 고등학교 및 제휴 대학 입학 시 가산점 및 추천 전형 혜택 제공.",
                     pathway_quote_2: "2+2 복수 학위 및 교환학생 프로그램을 통해 글로벌 인재를 양성합니다.",
-                    // Partners
                     target_title: "진출 국가",
                     target_partners: "* 세종학당 · KOICA · KERIS 협력 사업",
-                    // CTA
                     cta_title: "Let's shape the future <br>of K-Culture <span class='text-rose-600'>together</span>.",
                     cta_desc: "글로벌 파트너십에 관심이 있으시다면, 언제든지 연락 주세요. 맞춤형 솔루션을 설계해 드립니다.",
                     cta_btn1: "파트너십 문의",
                     cta_btn2: "info@kaiculture.com",
-                    // Footer
                     footer_tagline: "AI 기반 K-컬처 교육",
                     footer_privacy: "개인정보처리방침",
                     footer_terms: "이용약관",
@@ -626,22 +755,18 @@
                 }
             };
 
-            // --- DOM Elements ---
-            const langToggle = document.getElementById('langToggle');
-            const translatableElements = document.querySelectorAll('[data-key]');
-            let currentLang = 'ko'; // Default language
-
             // --- Function to apply translations ---
             function setLanguage(lang) {
                 currentLang = lang;
-                // Update button text
-                langToggle.textContent = lang === 'ko' ? 'EN / KO' : 'KO / EN';
+                // Update both desktop and mobile buttons
+                const buttonText = lang === 'ko' ? 'EN / KO' : 'KO / EN';
+                langToggle.textContent = buttonText;
+                mobileLangToggle.textContent = buttonText;
 
                 // Update all translatable elements
                 translatableElements.forEach(el => {
                     const key = el.getAttribute('data-key');
                     if (translations[lang] && translations[lang][key]) {
-                        // If the translation contains HTML, use innerHTML, else use textContent
                         if (translations[lang][key].includes('<')) {
                             el.innerHTML = translations[lang][key];
                         } else {
@@ -650,14 +775,20 @@
                     }
                 });
 
-                // Update html lang attribute
                 document.documentElement.lang = lang;
             }
 
-            // --- Toggle Event ---
+            // --- Language Toggle Event Listeners ---
             langToggle.addEventListener('click', function() {
                 const nextLang = currentLang === 'ko' ? 'en' : 'ko';
                 setLanguage(nextLang);
+            });
+
+            mobileLangToggle.addEventListener('click', function() {
+                const nextLang = currentLang === 'ko' ? 'en' : 'ko';
+                setLanguage(nextLang);
+                // Close mobile menu after language change (optional)
+                // closeMobileMenu();
             });
 
             // --- Set initial language (Korean) ---
